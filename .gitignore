@@ -6,3 +6,4 @@ hourly
 node_modules
 .vscode
 logs/*.log
+*.log
