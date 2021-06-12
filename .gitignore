@@ -1,0 +1,8 @@
+15mins
+archive
+backup
+daily
+hourly
+node_modules
+.vscode
+logs/*.log

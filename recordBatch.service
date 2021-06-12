@@ -1,0 +1,15 @@
+[Unit]
+Description=RTSP camera batch recorder
+
+[Service]
+Type=simple
+WorkingDirectory=/home/roland/camScripts
+
+ExecStart=/home/roland/camScripts/recordBatch.sh
+Restart=always
+
+StandardOutput=syslog
+StandardError=syslog
+
+[Install]
+WantedBy=multi-user.target
