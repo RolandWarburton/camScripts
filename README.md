@@ -6,7 +6,7 @@ A collection of random scripts i wrote to record and save footage with.
 
 Record only when motion is detected in full quality.
 
-[https://github.com/Motion-Project/motion](Motion Project) is a program that monitors the video signal from one or more cameras and is able to detect if a significant part of the picture has changed. Or in other words, it can detect motion.
+[Motion Project](https://github.com/Motion-Project/motion) is a program that monitors the video signal from one or more cameras and is able to detect if a significant part of the picture has changed. Or in other words, it can detect motion.
 
 To start motion...
 
