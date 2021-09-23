@@ -1,0 +1,61 @@
+<!-- Based on https://www.rickmakes.com/streaming-an-ip-camera-to-a-web-browser-using-ffmpeg/ -->
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Security Camera Stream</title>
+	</head>
+	<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+	<body>
+		<div id="video-wrapper">
+			<video id="video" type="application/x-mpegURL" preload="metadata"></video>
+			<a id="anchor-play" style="display: block" onclick="playStream()">play stream</a>
+		</div>
+		<script>
+			const url = "http://store.rolandw.lan:9050/live/output.m3u8";
+			const video = document.querySelector("#video");
+			// start playing the stream
+			function playStream() {
+				return video
+					.play()
+					.then(() => {
+						console.log("playing...");
+						document.querySelector("#error").remove();
+						document.querySelector("#anchor-play").style.display = "none";
+					})
+					.catch((err) => {
+						// Show the play button if the browser blocked autoplaying the stream
+						console.log("falling back on play button");
+						const error = document.createElement("div");
+						error.id = "error";
+						error.innerHTML = "Could not get permission to autoplay the stream.";
+
+						document.querySelector("#video-wrapper").append(error);
+
+						const playAnchor = document.querySelector("#anchor-play");
+						playAnchor.style.display = "block";
+					});
+			}
+			if (!Hls.isSupported()) {
+				const supportError = document.createElement("div");
+				supportError.innerHTML =
+					"Your browser does not support the HLS video format, please try with another browser.";
+				document.body.appendChild(supportError);
+			} else {
+				const hls = new Hls();
+				// bind them together
+				hls.attachMedia(video);
+				hls.on(Hls.Events.MEDIA_ATTACHED, function () {
+					console.log("video and hls.js are now bound together !");
+					hls.loadSource(url);
+					hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
+						console.log(
+							"manifest loaded, found " + data.levels.length + " quality level"
+						);
+						playStream();
+					});
+				});
+			}
+		</script>
+	</body>
+</html>

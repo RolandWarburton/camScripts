@@ -1,0 +1,16 @@
+ffmpeg \
+-f alsa \
+-i hw:0 \
+-vaapi_device /dev/dri/renderD128 \
+-f v4l2 \
+-r 25 \
+-re -i /dev/video0 \
+-vf 'format=nv12,hwupload' \
+-c:v h264_vaapi \
+-hls_time 5 \
+-hls_list_size 2 \
+-start_number 1 \
+-hls_flags delete_segments \
+-segment_wrap 10 \
+output.m3u8
+
