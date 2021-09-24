@@ -1,0 +1,24 @@
+FROM debian:11
+
+# add the non free repos to install the intel VA drivers (video acceleration)
+RUn echo "deb http://http.us.debian.org/debian bullseye main contrib non-free" | tee -a /etc/apt/sources.list
+RUN apt update
+RUN apt -y install i965-va-driver-shaders
+
+# required for vaapi and such support for ffmpeg
+RUN apt -y install libgl1-mesa-glx
+RUN apt -y install libgl1-mesa-dri
+
+# install ffmpeg itself
+RUN apt -y install ffmpeg
+
+# Create dir to run the script from
+RUN mkdir -p /usr/src/app/data
+
+# move the script to its app dir
+COPY server/live/shell /usr/src/app/shell.sh
+RUN chown 755 /usr/src/app/shell.sh
+
+# run the script
+USER root
+CMD ["/usr/src/app/shell.sh"]

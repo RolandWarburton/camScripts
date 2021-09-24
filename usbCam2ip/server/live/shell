@@ -1,3 +1,7 @@
+#!/usr/bin/env sh
+
+cd /data
+
 ffmpeg \
 -f alsa \
 -i hw:0 \
@@ -13,4 +17,3 @@ ffmpeg \
 -hls_flags delete_segments \
 -segment_wrap 10 \
 output.m3u8
-

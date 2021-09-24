@@ -1,0 +1,31 @@
+version: "3.1"
+services:
+    ups2ip_ffmpeg:
+        container_name: usb2ip_ffmpeg
+        build:
+            context: .
+            dockerfile: dockerfile.ffmpeg
+        # required to give access to host device drivers
+        privileged: true
+        devices:
+            - "/dev/video0:/dev/video0"
+            - "/dev/dri:/dev/dri"
+        volumes:
+            - "/tmp/.X11-unix:/tmp/.X11-unix"
+            - usb2ip:/data
+        environment:
+            - "DISPLAY=$DISPLAY"
+    ups2ip_nginx:
+        container_name: usb2ip_nginx
+        build:
+            context: .
+            dockerfile: dockerfile.nginx
+        volumes:
+            - usb2ip:/etc/nginx/html/live
+        ports:
+            - 8000:8000
+
+# Using `external: true` causes docker to complain if the volume does not exist
+volumes:
+    usb2ip:
+        external: true
