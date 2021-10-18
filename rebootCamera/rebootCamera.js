@@ -6,6 +6,7 @@ const password = "password";
 
 (async () => {
 	// request a login token
+	console.log("requesting token...");
 	const request = await fetch(`http://${ip}/cgi-bin/api.cgi?cmd=Login&token=null`, {
 		credentials: "omit",
 		headers: {
@@ -24,10 +25,15 @@ const password = "password";
 		mode: "cors",
 	});
 
+	console.log(`response...`);
+
 	const response = await request.json();
 	const authToken = response[0].value.Token.name;
 
+	console.log(`got token ${authToken}`);
+
 	// Then to reboot the camera using the login token
+	console.log("rebooting camera");
 	await fetch(`http://${ip}/cgi-bin/api.cgi?cmd=Reboot&token=${authToken}`, {
 		credentials: "omit",
 		headers: {
@@ -45,6 +51,7 @@ const password = "password";
 		method: "POST",
 		mode: "cors",
 	});
+	console.log("reboot command sent");
 })().catch((e) => {
 	console.error("failed somehow");
 	console.error(e);
