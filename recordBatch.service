@@ -3,13 +3,13 @@ Description=RTSP camera batch recorder
 
 [Service]
 Type=simple
-WorkingDirectory=/home/roland/camScripts
+WorkingDirectory=/mnt/borg/security-recordings/camScripts
+User=borg
+Group=borg
 
-ExecStart=/home/roland/camScripts/recordBatch.sh
+ExecStart=/mnt/borg/security-recordings/camScripts/recordBatch.sh
 Restart=always
-
-StandardOutput=syslog
-StandardError=syslog
+RestartSec=100
 
 [Install]
 WantedBy=multi-user.target
