@@ -37,7 +37,7 @@ async function main() {
     const ctime = new Date(entry.stats.ctime).getTime(); // the creation time of the file
     const now = Date.now() - 1000 * (argv.b * 100); // wait the number of videos * 100 seconds
   
-    // ctime of the file is less than now + 900 seconds (file is older than 100s)
+    // ctime of the file is less than now + N seconds
     if (ctime < now) {
       files.push(entry.fullPath);
     } else {
