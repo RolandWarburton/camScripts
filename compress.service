@@ -1,0 +1,12 @@
+[Unit]
+Description=camera output compresser
+
+[Service]
+Type=simple
+WorkingDirectory=/mnt/borg/security-recordings/camScripts
+
+ExecStart=/mnt/borg/security-recordings/camScripts/compress.sh
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

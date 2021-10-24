@@ -1,0 +1,24 @@
+{
+  "name": "compress",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "bin/index.js",
+  "scripts": {
+    "start": "node src/index.js -c cam01"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bin": {
+    "compress": "bin/index.js"
+  },
+  "dependencies": {
+    "esm": "^3.2.25",
+    "readdirp": "^3.6.0",
+    "yargs": "^17.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.14"
+  }
+}
